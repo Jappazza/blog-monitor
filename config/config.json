@@ -1,0 +1,34 @@
+{
+  "blogs": [
+    {
+      "name": "Goldman Sachs Insights - Articles",
+      "url": "https://www.goldmansachs.com/insights/articles",
+      "rss_url": "https://news.google.com/rss/search?q=site:goldmansachs.com/insights/articles&hl=en&gl=US&ceid=US:en",
+      "use_rss_content_only": false,
+      "enabled": true,
+      "notes": "Google News RSS as discovery feed. Fetches full article from GS site."
+    },
+    {
+      "name": "BlackRock Investment Institute",
+      "url": "https://www.blackrock.com/corporate/insights/blackrock-investment-institute/publications",
+      "rss_url": "https://news.google.com/rss/search?q=site:blackrock.com/corporate/insights/blackrock-investment-institute&hl=en&gl=US&ceid=US:en",
+      "use_rss_content_only": false,
+      "enabled": true,
+      "notes": "Google News RSS as discovery feed. Weekly commentary, annual outlook, mega forces research. No native RSS."
+    },
+    {
+      "name": "JPMorgan Asset Management - Market Insights",
+      "url": "https://am.jpmorgan.com/us/en/asset-management/adv/insights/market-insights/",
+      "json_url": "https://am.jpmorgan.com/content/jpm-am-aem/americas/us/en/adv/insights/market-insights/_jcr_content/root/responsivegrid/jpm_am_container_sec/section/jpm_am_mosaic.model.json",
+      "json_base_url": "https://am.jpmorgan.com",
+      "json_pages_key": "pages",
+      "use_rss_content_only": false,
+      "enabled": true,
+      "notes": "AEM JSON endpoint — am.jpmorgan.com not indexed by Google News. Parses hidden model.json with pages[] array (title, description, displayDate, url)."
+    }
+  ],
+  "company_profile_path": "config/user_profile.txt",
+  "output_format": "markdown",
+  "max_posts_per_blog": 10,
+  "min_relevance_score": 0
+}

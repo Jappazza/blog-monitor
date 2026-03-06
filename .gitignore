@@ -1,0 +1,37 @@
+# Internal planning docs — do not publish
+PRD.md
+
+# API Keys e secrets
+.env
+*.key
+config/secrets.json
+
+# Output e logs
+output/*.md
+output/*.json
+logs/*.log
+logs/*.json
+logs/*.html
+
+# State files — excluded from repo (reset before publishing)
+state/*.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db

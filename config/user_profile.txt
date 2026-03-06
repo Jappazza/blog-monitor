@@ -1,0 +1,42 @@
+# USER PROFILE — fill in this file to customize the relevance analysis
+
+# Replace the placeholder text below with your company/personal context.
+# The AI will use this profile to evaluate whether each article is relevant to you.
+
+COMPANY NAME: [Your Company Name]
+
+SECTOR: WealthTech / FinTech B2B SaaS
+
+MAIN PRODUCT OR SERVICE:
+B2B SaaS platform that helps financial advisors and wealth managers automate
+client reporting, portfolio monitoring, and compliance workflows. We serve
+independent financial advisors, private banks, and multi-family offices in Europe.
+
+TARGET CLIENTS:
+- Independent financial advisors (IFA)
+- Private banks and wealth management firms
+- Multi-family offices
+- Insurance companies with investment products
+
+STRATEGIC TOPICS OF INTEREST:
+1. AI and automation in financial advisory (robo-advisory, AI assistants, LLMs in finance)
+2. Global macroeconomic trends affecting portfolio strategy (rates, inflation, geopolitics)
+3. Capital markets and equity research (technology sector, AI companies, software)
+4. Wealth management industry consolidation and M&A
+5. MiFID II, ESG regulation, and compliance trends in Europe
+6. Digital transformation and technology adoption in financial services
+7. Asset allocation and investment strategies for HNW clients
+
+KEY COMPETITORS:
+- Addepar
+- Orion Advisor Solutions
+- Black Diamond / SS&C
+- InvestCloud
+- Objectway
+
+GEOGRAPHY: Europe (Italy, UK, DACH), with interest in global macro and US market trends
+
+VALUE PROPOSITION:
+We help wealth managers reduce operational overhead and improve client experience
+through automation and AI-driven insights, enabling them to focus on high-value
+advisory relationships rather than manual reporting.
