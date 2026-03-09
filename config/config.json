@@ -25,6 +25,38 @@
       "use_rss_content_only": false,
       "enabled": true,
       "notes": "AEM JSON endpoint — am.jpmorgan.com not indexed by Google News. Parses hidden model.json with pages[] array (title, description, displayDate, url)."
+    },
+    {
+      "name": "Federal Reserve — Research & Notes",
+      "url": "https://www.federalreserve.gov/econres.htm",
+      "rss_url": "https://news.google.com/rss/search?q=site:federalreserve.gov+econres&hl=en&gl=US&ceid=US:en",
+      "use_rss_content_only": false,
+      "enabled": true,
+      "notes": "Google News RSS. FEDS Notes, Finance & Economics Discussion Series, working papers. Native feed /feeds/research.xml è 404 — Google News usato come fallback."
+    },
+    {
+      "name": "ECB — Research & Publications",
+      "url": "https://www.ecb.europa.eu/pub/economic-research/resbull/html/index.en.html",
+      "rss_url": "https://news.google.com/rss/search?q=site:ecb.europa.eu/pub&hl=en&gl=US&ceid=US:en",
+      "use_rss_content_only": false,
+      "enabled": true,
+      "notes": "Google News RSS. ECB Research Bulletin, Economic Bulletin, working papers. Essential for European advisors."
+    },
+    {
+      "name": "PIMCO — Insights",
+      "url": "https://www.pimco.com/us/en/insights",
+      "rss_url": "https://news.google.com/rss/search?q=site:pimco.com+insights&hl=en&gl=US&ceid=US:en",
+      "use_rss_content_only": false,
+      "enabled": true,
+      "notes": "Google News RSS. Fixed income research, macro outlook, Secular Outlook, Investment Committee views. No native RSS confirmed."
+    },
+    {
+      "name": "Morgan Stanley Investment Management — Insights",
+      "url": "https://www.morganstanley.com/im/en-us/institutional-investor/insights-and-education.html",
+      "rss_url": "https://news.google.com/rss/search?q=site:morganstanley.com/im&hl=en&gl=US&ceid=US:en",
+      "use_rss_content_only": false,
+      "enabled": true,
+      "notes": "Google News RSS. Market outlooks, fund commentaries, secular themes."
     }
   ],
   "company_profile_path": "config/user_profile.txt",
