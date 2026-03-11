@@ -57,6 +57,38 @@
       "use_rss_content_only": false,
       "enabled": true,
       "notes": "Google News RSS. Market outlooks, fund commentaries, secular themes."
+    },
+    {
+      "name": "IMF — Blog & Research",
+      "url": "https://www.imf.org/en/News/Articles",
+      "rss_url": "https://news.google.com/rss/search?q=site:imf.org/en/Blogs+OR+site:imf.org/en/Publications&hl=en&gl=US&ceid=US:en",
+      "use_rss_content_only": false,
+      "enabled": true,
+      "notes": "Google News RSS. WEO, Global Financial Stability Report, IMFBlog. Molto prolisso — valutare max_posts_per_blog ridotto se troppo rumore."
+    },
+    {
+      "name": "World Bank — Blogs",
+      "url": "https://blogs.worldbank.org",
+      "rss_url": "https://news.google.com/rss/search?q=site:blogs.worldbank.org&hl=en&gl=US&ceid=US:en",
+      "use_rss_content_only": false,
+      "enabled": true,
+      "notes": "Google News RSS. Focus sviluppo economico, mercati emergenti, povertà, clima. Rilevante per advisor con clienti ESG o EM-oriented."
+    },
+    {
+      "name": "BIS — Speeches & Working Papers",
+      "url": "https://www.bis.org/speeches.htm",
+      "rss_url": "https://news.google.com/rss/search?q=site:bis.org&hl=en&gl=US&ceid=US:en",
+      "use_rss_content_only": false,
+      "enabled": true,
+      "notes": "Google News RSS. BIS Working Papers, Quarterly Review, speeches. Alta autorevolezza su regolazione, stabilità finanziaria, crypto."
+    },
+    {
+      "name": "OECD — Finance & Economics",
+      "url": "https://www.oecd.org/en/topics/finance.html",
+      "rss_url": "https://news.google.com/rss/search?q=site:oecd.org+finance+OR+economy+OR+outlook&hl=en&gl=US&ceid=US:en",
+      "use_rss_content_only": false,
+      "enabled": true,
+      "notes": "Google News RSS. Economic Outlook, Going for Growth, financial markets. Bassa frequenza, alta autorevolezza su policy."
     }
   ],
   "company_profile_path": "config/user_profile.txt",
