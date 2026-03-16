@@ -1,0 +1,159 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}Trigger Run{% endblock %}
+
+{% block content %}
+<div class="d-flex align-items-center justify-content-between mb-4">
+  <h4 class="fw-bold mb-0">Trigger Run Manuale</h4>
+</div>
+
+<!-- Script info -->
+<div class="card border-0 shadow-sm mb-4">
+  <div class="card-body">
+    <p class="small text-muted mb-1">Script</p>
+    <code class="small">{{ script_path }}</code>
+    {% if not script_exists %}
+    <div class="alert alert-danger mt-2 mb-0 small">
+      <i class="bi bi-exclamation-triangle me-1"></i>Script non trovato. Imposta <code>BLOG_MONITOR_SCRIPT</code> nelle variabili d'ambiente.
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+<!-- Pulsante trigger -->
+<div class="card border-0 shadow-sm mb-4">
+  <div class="card-body">
+    <div class="d-flex align-items-center gap-3 flex-wrap">
+      <button id="btnStart" class="btn btn-dark"
+              {% if run_is_active or not script_exists %}disabled{% endif %}>
+        <i class="bi bi-play-circle me-1"></i>
+        {% if run_is_active %}Run in corso...{% else %}Avvia run{% endif %}
+      </button>
+      <div id="statusBadge" class="d-none">
+        <span class="badge bg-primary">
+          <span class="spinner-border spinner-border-sm me-1" role="status"></span>
+          In esecuzione
+        </span>
+      </div>
+      <span id="doneMsg" class="d-none small text-muted"></span>
+    </div>
+  </div>
+</div>
+
+<!-- Log output -->
+<div class="card border-0 shadow-sm">
+  <div class="card-header bg-dark text-white d-flex align-items-center justify-content-between">
+    <span class="small fw-semibold"><i class="bi bi-terminal me-1"></i>Log output</span>
+    <button class="btn btn-sm btn-outline-light py-0 px-2" id="btnClear">Pulisci</button>
+  </div>
+  <div class="card-body p-0">
+    <pre id="logOutput"
+         style="background:#1a1a2e;color:#a8ff78;min-height:300px;max-height:500px;
+                overflow-y:auto;padding:1rem;margin:0;font-size:.8rem;border-radius:0 0 .375rem .375rem;"></pre>
+  </div>
+</div>
+
+<!-- Run recenti -->
+{% if recent_runs %}
+<div class="mt-4">
+  <h6 class="fw-semibold mb-2">Run recenti</h6>
+  <div class="table-responsive">
+    <table class="table table-sm table-hover bg-white rounded shadow-sm">
+      <thead class="table-light">
+        <tr>
+          <th>#</th><th>Avviato</th><th>Status</th><th>Articoli</th><th>Durata</th><th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in recent_runs %}
+        <tr>
+          <td class="text-muted">{{ r.id }}</td>
+          <td>{{ r.started_at.strftime('%-d %b %Y %H:%M') }}</td>
+          <td>
+            <span class="badge
+              {% if r.status == 'success' %}bg-success
+              {% elif r.status == 'partial' %}bg-warning text-dark
+              {% elif r.status == 'running' %}bg-primary
+              {% else %}bg-danger{% endif %}">
+              {{ r.status }}
+            </span>
+          </td>
+          <td>{{ r.articles_found }}</td>
+          <td>{% if r.duration_seconds is not none %}{{ r.duration_seconds }}s{% else %}—{% endif %}</td>
+          <td><a href="{{ url_for('admin.log_detail', run_id=r.id) }}" class="btn btn-outline-secondary btn-sm py-0">dettaglio</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+const btnStart   = document.getElementById('btnStart');
+const statusBadge = document.getElementById('statusBadge');
+const doneMsg    = document.getElementById('doneMsg');
+const logOutput  = document.getElementById('logOutput');
+let pollInterval = null;
+let isRunning    = {{ 'true' if run_is_active else 'false' }};
+
+function scrollLog() {
+  logOutput.scrollTop = logOutput.scrollHeight;
+}
+
+function setRunning(running) {
+  isRunning = running;
+  btnStart.disabled = running;
+  btnStart.innerHTML = running
+    ? '<span class="spinner-border spinner-border-sm me-1"></span>In corso...'
+    : '<i class="bi bi-play-circle me-1"></i>Avvia run';
+  statusBadge.classList.toggle('d-none', !running);
+}
+
+function poll() {
+  fetch('{{ url_for("admin.run_status") }}')
+    .then(r => r.json())
+    .then(data => {
+      if (data.lines && data.lines.length) {
+        logOutput.textContent = data.lines.join('\n');
+        scrollLog();
+      }
+      if (!data.running && isRunning) {
+        setRunning(false);
+        clearInterval(pollInterval);
+        pollInterval = null;
+        const ok = data.exit_code === 0;
+        doneMsg.textContent = ok ? '✓ Completato con successo.' : `✗ Terminato con errore (exit ${data.exit_code}).`;
+        doneMsg.className   = ok ? 'small text-success' : 'small text-danger';
+        doneMsg.classList.remove('d-none');
+        setTimeout(() => location.reload(), 3000);
+      }
+    })
+    .catch(console.error);
+}
+
+btnStart.addEventListener('click', () => {
+  fetch('{{ url_for("admin.run_start") }}', { method: 'POST' })
+    .then(r => r.json())
+    .then(data => {
+      if (data.error) { alert(data.error); return; }
+      setRunning(true);
+      doneMsg.classList.add('d-none');
+      logOutput.textContent = '';
+      pollInterval = setInterval(poll, 2000);
+    })
+    .catch(e => alert('Errore: ' + e));
+});
+
+document.getElementById('btnClear').addEventListener('click', () => {
+  logOutput.textContent = '';
+});
+
+// Se c'era già un run in corso al caricamento della pagina, avvia subito il polling
+if (isRunning) {
+  statusBadge.classList.remove('d-none');
+  pollInterval = setInterval(poll, 2000);
+}
+</script>
+{% endblock %}

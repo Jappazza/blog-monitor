@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block title %}Privacy Policy{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+
+      <h1 class="h3 fw-bold mb-1">Privacy Policy</h1>
+      <p class="text-muted small mb-4">Ultimo aggiornamento: marzo 2026</p>
+
+      <div class="card border-0 shadow-sm">
+        <div class="card-body p-4 p-md-5">
+
+          <h2 class="h5 fw-semibold mb-3">Chi siamo</h2>
+          <p class="text-muted">
+            Fides è un servizio di sintesi di ricerca finanziaria istituzionale, sviluppato e gestito da
+            Jacopo Caretta Mussa (<a href="mailto:jacopo.caretta-mussa@fides.app">jacopo.caretta-mussa@fides.app</a>).
+            Il servizio è accessibile all'indirizzo <strong>fides.app</strong> (o subdomain equivalente su Render).
+          </p>
+
+          <hr class="my-4" />
+
+          <h2 class="h5 fw-semibold mb-3">Dati che raccogliamo</h2>
+          <p class="text-muted mb-2">Raccogliamo esclusivamente i dati necessari al funzionamento del servizio:</p>
+          <ul class="text-muted">
+            <li><strong>Indirizzo email</strong> — utilizzato per l'accesso all'account e per inviare notifiche settimanali sui nuovi digest.</li>
+            <li><strong>Password</strong> — conservata in forma <em>hashed</em> (bcrypt). Non è mai leggibile da noi.</li>
+            <li><strong>Timestamp di registrazione e ultimo accesso</strong> — per gestione interna del servizio.</li>
+          </ul>
+          <p class="text-muted">Non raccogliamo dati di navigazione, cookie di terze parti o informazioni personali aggiuntive.</p>
+
+          <hr class="my-4" />
+
+          <h2 class="h5 fw-semibold mb-3">Come usiamo i tuoi dati</h2>
+          <ul class="text-muted">
+            <li>Per autenticarti e mantenere la tua sessione attiva.</li>
+            <li>Per inviarti una notifica email settimanale quando è disponibile un nuovo digest (puoi disiscriverti in qualsiasi momento contattandoci).</li>
+            <li>Per nessun altro scopo. Non vendiamo, non cediamo, non condividiamo i tuoi dati con terze parti.</li>
+          </ul>
+
+          <hr class="my-4" />
+
+          <h2 class="h5 fw-semibold mb-3">Base giuridica (GDPR)</h2>
+          <p class="text-muted">
+            Il trattamento dei tuoi dati si basa sul <strong>contratto</strong> (art. 6(1)(b) GDPR):
+            fornire i dati è necessario per registrarsi e utilizzare il servizio.
+          </p>
+
+          <hr class="my-4" />
+
+          <h2 class="h5 fw-semibold mb-3">Dove sono conservati i dati</h2>
+          <p class="text-muted">
+            I dati sono conservati su <strong>Supabase</strong> (database PostgreSQL gestito, hosting AWS EU-West),
+            accessibile solo tramite connessione cifrata (TLS). L'applicazione è ospitata su <strong>Render</strong>
+            (server in EU o US, a seconda della regione del tuo account Render).
+          </p>
+
+          <hr class="my-4" />
+
+          <h2 class="h5 fw-semibold mb-3">Per quanto tempo</h2>
+          <p class="text-muted">
+            I tuoi dati sono conservati finché il tuo account è attivo.
+            Puoi richiedere la cancellazione del tuo account in qualsiasi momento scrivendo a
+            <a href="mailto:jacopo.caretta-mussa@fides.app">jacopo.caretta-mussa@fides.app</a>.
+            I dati vengono rimossi entro 30 giorni dalla richiesta.
+          </p>
+
+          <hr class="my-4" />
+
+          <h2 class="h5 fw-semibold mb-3">I tuoi diritti</h2>
+          <p class="text-muted mb-2">Hai il diritto di:</p>
+          <ul class="text-muted">
+            <li><strong>Accesso</strong> — richiedere una copia dei dati che conserviamo su di te.</li>
+            <li><strong>Rettifica</strong> — correggere dati errati.</li>
+            <li><strong>Cancellazione</strong> — richiedere la rimozione del tuo account e di tutti i dati associati.</li>
+            <li><strong>Portabilità</strong> — ricevere i tuoi dati in formato strutturato.</li>
+            <li><strong>Opposizione</strong> — opporsi al trattamento per finalità di marketing (non applicabile: non facciamo marketing).</li>
+          </ul>
+          <p class="text-muted">
+            Per esercitare questi diritti scrivi a
+            <a href="mailto:jacopo.caretta-mussa@fides.app">jacopo.caretta-mussa@fides.app</a>.
+            Risponderemo entro 30 giorni.
+          </p>
+
+          <hr class="my-4" />
+
+          <h2 class="h5 fw-semibold mb-3">Cookie</h2>
+          <p class="text-muted">
+            Utilizziamo un unico cookie tecnico di sessione (<code>session</code>) strettamente necessario
+            per mantenere l'accesso autenticato. Non utilizziamo cookie di profilazione o di terze parti.
+            Non è richiesto il consenso per questo cookie (art. 122 Codice Privacy).
+          </p>
+
+          <hr class="my-4" />
+
+          <h2 class="h5 fw-semibold mb-3">Contatti</h2>
+          <p class="text-muted mb-0">
+            Per qualsiasi domanda su questa privacy policy:
+            <a href="mailto:jacopo.caretta-mussa@fides.app">jacopo.caretta-mussa@fides.app</a>
+          </p>
+
+        </div>
+      </div>
+
+      <p class="text-center text-muted small mt-4">
+        <a href="{{ url_for('auth.login') }}" class="text-muted">← Torna al login</a>
+      </p>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

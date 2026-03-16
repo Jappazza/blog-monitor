@@ -1,0 +1,70 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}Log Run{% endblock %}
+
+{% block content %}
+<h4 class="fw-bold mb-4">Log Run</h4>
+
+{% if runs %}
+<div class="card border-0 shadow-sm">
+  <div class="table-responsive">
+    <table class="table table-hover mb-0">
+      <thead class="table-light">
+        <tr>
+          <th>#</th>
+          <th>Avviato</th>
+          <th>Completato</th>
+          <th>Status</th>
+          <th>Articoli</th>
+          <th>Durata</th>
+          <th>Errori</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in runs %}
+        <tr>
+          <td class="text-muted small">{{ r.id }}</td>
+          <td class="small">{{ r.started_at.strftime('%-d %b %Y %H:%M') }}</td>
+          <td class="small">
+            {% if r.completed_at %}{{ r.completed_at.strftime('%H:%M:%S') }}
+            {% else %}<span class="text-muted">—</span>{% endif %}
+          </td>
+          <td>
+            <span class="badge
+              {% if r.status == 'success' %}bg-success
+              {% elif r.status == 'partial' %}bg-warning text-dark
+              {% elif r.status == 'running' %}bg-primary
+              {% else %}bg-danger{% endif %}">
+              {{ r.status }}
+            </span>
+          </td>
+          <td>{{ r.articles_found }}</td>
+          <td class="small">
+            {% if r.duration_seconds is not none %}{{ r.duration_seconds }}s
+            {% else %}—{% endif %}
+          </td>
+          <td class="small">
+            {% if r.error_details %}
+              <span class="text-danger">{{ r.error_details | length }} fonti</span>
+            {% else %}
+              <span class="text-muted">—</span>
+            {% endif %}
+          </td>
+          <td>
+            <a href="{{ url_for('admin.log_detail', run_id=r.id) }}"
+               class="btn btn-outline-secondary btn-sm py-0 px-2">dettaglio</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% else %}
+<div class="text-center py-5 text-muted">
+  <i class="bi bi-journal-x" style="font-size:2.5rem;"></i>
+  <p class="mt-2">Nessun run ancora eseguito.</p>
+  <a href="{{ url_for('admin.run_page') }}" class="btn btn-dark btn-sm">Avvia il primo run</a>
+</div>
+{% endif %}
+{% endblock %}

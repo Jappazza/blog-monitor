@@ -419,8 +419,23 @@ Respond entirely in Italian. All fields (descrizione, rilevanza, punti_chiave, s
             force_reanalyze: Force reanalysis of already seen posts
         """
         all_analyses = []
+        source_errors: dict = {}   # {blog_name: "messaggio errore"} per il RunLog
         initial_count = self.state_manager.get_analyzed_count()
         initial_failed = self.state_manager.get_failed_count()
+
+        # ── Avvia RunLog nel DB Fides (se configurato) ────────────────────
+        _db_run_id = None
+        try:
+            import importlib.util as _ilu, sys as _sys
+            _dbw_path = Path(__file__).parent / "fides" / "scripts" / "db_writer.py"
+            _spec = _ilu.spec_from_file_location("db_writer", _dbw_path)
+            _dbw = _ilu.module_from_spec(_spec)
+            _spec.loader.exec_module(_dbw)
+            _sys.modules["db_writer"] = _dbw
+            _db_run_id = _dbw.start_run()
+            self.logger.info(f"DB: RunLog creato (id={_db_run_id})")
+        except Exception as _e:
+            self.logger.debug(f"DB writer non disponibile: {_e}")
 
         self.logger.info(f"\nArticoli già analizzati: {initial_count}")
         self.logger.info(f"Articoli falliti in precedenza: {initial_failed}\n")
@@ -539,6 +554,7 @@ Respond entirely in Italian. All fields (descrizione, rilevanza, punti_chiave, s
                 except Exception as e:
                     self.logger.error(f"  ✗ Error processing {post['title']}: {e}")
                     self.state_manager.mark_failed(post['link'], post['title'], str(e))
+                    source_errors[name] = str(e)
 
         # Save state
         self.state_manager.save()
@@ -563,6 +579,23 @@ Respond entirely in Italian. All fields (descrizione, rilevanza, punti_chiave, s
         self.logger.info(f"  Total in database: {new_count} (+{new_count - initial_count})")
         self.logger.info(f"  Total failed: {new_failed}")
         self.logger.info("=" * 60)
+
+        # ── Salva nel DB Fides (se il RunLog è stato avviato) ─────────────
+        if _db_run_id is not None:
+            try:
+                _finish_run = _sys.modules["db_writer"].finish_run
+                _digest_id = _finish_run(
+                    _db_run_id,
+                    all_analyses,
+                    source_errors or None,
+                    min_score=self.config.get('min_relevance_score', 6),
+                )
+                if _digest_id:
+                    self.logger.info(f"DB: Digest salvato (id={_digest_id})")
+                else:
+                    self.logger.info("DB: RunLog aggiornato (nessun articolo rilevante)")
+            except Exception as _e:
+                self.logger.error(f"DB: errore nel salvataggio ({_e})")
 
 
 def main():

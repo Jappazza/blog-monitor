@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %}Le nostre fonti{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+
+  <div class="mb-4">
+    <h2 class="fw-bold mb-1">Fonti monitorate</h2>
+    <p class="text-muted">
+      Ogni settimana raccogliamo e analizziamo la ricerca pubblicata da
+      {{ sources|length }} istituzioni finanziarie di primo piano.
+    </p>
+  </div>
+
+  {% for category in category_order %}
+    {% if grouped.get(category) %}
+    <h5 class="fw-semibold mt-4 mb-3">
+      <span class="badge bg-{{ category_badge[category] }} me-2">{{ grouped[category]|length }}</span>
+      {{ category }}
+    </h5>
+    <div class="row g-3 mb-2">
+      {% for source in grouped[category] %}
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card h-100 border-0 shadow-sm
+                    {% if not source.enabled %}opacity-50{% endif %}">
+          <div class="card-body p-3 d-flex align-items-start gap-3">
+            <!-- Icona -->
+            <div class="flex-shrink-0 rounded-2 bg-light d-flex align-items-center justify-content-center"
+                 style="width:40px;height:40px;">
+              <i class="bi bi-bank2 text-dark"></i>
+            </div>
+            <div class="flex-grow-1 min-width-0">
+              <p class="fw-semibold mb-0" style="font-size:0.9rem;">
+                {{ source.name }}
+              </p>
+              <div class="mt-1 d-flex flex-wrap gap-1 align-items-center">
+                <span class="badge bg-{{ category_badge[category] }} bg-opacity-10
+                             text-{{ category_badge[category] }} border
+                             border-{{ category_badge[category] }}-subtle"
+                      style="font-size:0.7rem;">
+                  {{ source.category }}
+                </span>
+                {% if source.enabled %}
+                <span class="badge bg-success-subtle text-success border border-success-subtle"
+                      style="font-size:0.7rem;">
+                  <i class="bi bi-check-circle me-1"></i>Attiva
+                </span>
+                {% else %}
+                <span class="badge bg-secondary-subtle text-secondary border"
+                      style="font-size:0.7rem;">
+                  <i class="bi bi-pause-circle me-1"></i>In pausa
+                </span>
+                {% endif %}
+              </div>
+              <a href="{{ source.url }}" target="_blank" rel="noopener"
+                 class="text-muted text-decoration-none mt-1 d-inline-block"
+                 style="font-size:0.78rem;">
+                Sito ufficiale <i class="bi bi-box-arrow-up-right ms-1"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  {% endfor %}
+
+  <div class="mt-5 p-3 bg-light rounded border">
+    <p class="small text-muted mb-0">
+      <i class="bi bi-info-circle me-1"></i>
+      Le fonti vengono monitorate ogni lunedì. Per suggerire una nuova fonte,
+      contattaci direttamente.
+    </p>
+  </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block title %}Registrati{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-sm-10 col-md-7 col-lg-5">
+
+      <!-- Header -->
+      <div class="text-center mb-4">
+        <div class="mb-3">
+          <i class="bi bi-journal-bookmark-fill text-dark" style="font-size: 2.5rem;"></i>
+        </div>
+        <h1 class="h3 fw-bold">Crea il tuo account</h1>
+        <p class="text-muted">
+          Accedi ogni settimana alla ricerca delle principali istituzioni finanziarie mondiali,
+          già filtrata e sintetizzata.
+        </p>
+      </div>
+
+      <!-- Card form -->
+      <div class="card shadow-sm border-0">
+        <div class="card-body p-4">
+          <form method="POST" action="{{ url_for('auth.register') }}" novalidate>
+
+            <!-- Email -->
+            <div class="mb-3">
+              <label for="email" class="form-label fw-semibold">Email</label>
+              <input
+                type="email"
+                class="form-control form-control-lg"
+                id="email"
+                name="email"
+                placeholder="la.tua@email.com"
+                value="{{ request.form.get('email', '') }}"
+                required
+                autocomplete="email"
+              />
+            </div>
+
+            <!-- Password -->
+            <div class="mb-3">
+              <label for="password" class="form-label fw-semibold">Password</label>
+              <input
+                type="password"
+                class="form-control form-control-lg"
+                id="password"
+                name="password"
+                placeholder="Almeno 8 caratteri"
+                required
+                autocomplete="new-password"
+              />
+              <div class="form-text">Minimo 8 caratteri.</div>
+            </div>
+
+            <!-- Conferma password -->
+            <div class="mb-4">
+              <label for="password_confirm" class="form-label fw-semibold">Conferma password</label>
+              <input
+                type="password"
+                class="form-control form-control-lg"
+                id="password_confirm"
+                name="password_confirm"
+                placeholder="Ripeti la password"
+                required
+                autocomplete="new-password"
+              />
+            </div>
+
+            <!-- Submit -->
+            <div class="d-grid">
+              <button type="submit" class="btn btn-dark btn-lg">
+                Crea account
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+
+      <!-- Link login -->
+      <p class="text-center mt-3 text-muted small">
+        Hai già un account?
+        <a href="{{ url_for('auth.login') }}" class="text-dark fw-semibold">Accedi</a>
+      </p>
+
+      <!-- Nota valore -->
+      <div class="mt-4 p-3 bg-white rounded border">
+        <p class="small text-muted mb-2 fw-semibold">
+          <i class="bi bi-info-circle me-1"></i>Cosa trovi dentro
+        </p>
+        <ul class="small text-muted mb-0 ps-3">
+          <li>Digest settimanale da Goldman Sachs, BlackRock, FMI, BCE e altre 7 fonti</li>
+          <li>Score di rilevanza 1-10 per ogni articolo</li>
+          <li>3 spunti di conversazione pronti per i tuoi clienti</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

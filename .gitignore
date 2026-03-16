@@ -1,6 +1,9 @@
 # Internal planning docs — do not publish
 PRD.md
+PRD_FASE2.md
 SESSION_NOTES.md
+PHASE2_WORKFLOW.md
+PRODUCT_NAME.md
 
 # API Keys e secrets
 .env
@@ -21,11 +24,28 @@ state/*.json
 __pycache__/
 *.py[cod]
 *$py.class
+*.pyo
 *.so
 .Python
 venv/
 env/
 ENV/
+.venv/
+*.egg-info/
+dist/
+build/
+
+# Flask
+fides/instance/
+*.db
+*.sqlite
+*.sqlite3
+fides/.env
+
+# Logs e file temporanei
+*.log
+blog_report_*.md
+blog_report_*.json
 
 # IDE
 .vscode/
@@ -35,4 +55,11 @@ ENV/
 
 # OS
 .DS_Store
+.AppleDouble
+._*
 Thumbs.db
+
+# Test
+.coverage
+htmlcov/
+.pytest_cache/
