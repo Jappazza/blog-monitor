@@ -10,6 +10,14 @@ An automated tool that monitors financial research blogs, extracts articles, and
 4. **Tracks** article state (analyzed / failed) to avoid duplicate processing
 5. **Generates** markdown reports with description, why it matters, key takeaways, and client conversation starters
 
+## 🌐 Live implementation
+
+This script powers **[Fides](https://fides-ub7j.onrender.com)** — a production web app that turns weekly institutional research into a structured digest for financial advisors.
+
+> Blog Monitor handles the data pipeline. Fides adds authentication, a web UI, scheduled delivery, and email distribution — showing how a useful script becomes a deployable product.
+
+---
+
 ## 🚀 Quick Start
 
 ```bash
@@ -218,7 +226,7 @@ Using `claude-sonnet-4-5`:
 - [x] Google News as discovery feed for JS-rendered sites
 - [ ] Article content cache (avoid re-fetching)
 - [ ] Async processing with `asyncio`
-- [ ] Email delivery of reports
+- [x] Email delivery of reports ← implemented in [Fides](https://fides-ub7j.onrender.com)
 - [ ] Slack/Teams notifications
 - [ ] Multi-format export (JSON, CSV, PDF)
 
